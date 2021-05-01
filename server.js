@@ -1,24 +1,13 @@
-const http = require("http");
+const express = require("express");
+const dotenv = require("dotenv");
 
-const todos = [
-  { id: 1, text: "Todo One" },
-  { id: 2, text: "Todo Two" },
-  { id: 3, text: "Todo Three" },
-];
+dotenv.config({ path: "./config/config.env" });
 
-const server = http.createServer((req, res) => {
-  res.writeHead(201, {
-    "Content-Type": "application/json",
-    "X-Powered-By": "Node.js",
-  });
-  res.end(
-    JSON.stringify({
-      success: true,
-      data: todos,
-    })
-  );
-});
+const app = express();
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+);
