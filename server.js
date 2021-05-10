@@ -18,7 +18,12 @@ app.use("/api/v1/bootcamps", bootcamps);
 
 const PORT = process.env.PORT || 8080;
 
-app.listen(
+const server = app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
+
+process.on("unhandledRejection", (error, promise) => {
+  console.log(`Error: ${error.message}`);
+  server.close(() => process.exit(1));
+});
