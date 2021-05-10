@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require("mongoose-type-url");
-const { isEmail, isMobilePhone } = require("validator");
+const validator = require("validator");
 
 const BootcampSchema = new mongoose.Schema({
   name: {
@@ -21,10 +21,20 @@ const BootcampSchema = new mongoose.Schema({
     profile: mongoose.SchemaTypes.Url,
   },
   email: {
-    validate: [isEmail, "Invalid email"],
+    type: String,
+    validate: {
+      validator: validator.isEmail,
+      message: "{VALUE} is not a valid email",
+      isAsync: false,
+    },
   },
   phone: {
-    validate: [isMobilePhone, "Invalid phone number"],
+    type: String,
+    validate: {
+      validator: validator.isMobilePhone,
+      message: "{VALUE} is not a valid phone number",
+      isAsync: false,
+    },
   },
   address: {
     type: String,
@@ -92,4 +102,4 @@ const BootcampSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Bootcamp', BootcampSchema);
+module.exports = mongoose.model("Bootcamp", BootcampSchema);
