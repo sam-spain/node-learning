@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 require("mongoose-type-url");
 const validator = require("validator");
+const slugify = require("slugify");
 
 const BootcampSchema = new mongoose.Schema({
   name: {
@@ -100,6 +101,12 @@ const BootcampSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+BootcampSchema.pre("save", function (next) {
+  console.log("Slugify ran", this.name);
+  this.slug = slugify(this.name, {lower: true})
+  next();
 });
 
 module.exports = mongoose.model("Bootcamp", BootcampSchema);
