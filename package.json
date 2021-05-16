@@ -19,6 +19,7 @@
     "mongoose": "^5.12.8",
     "mongoose-type-url": "^2.1.0",
     "morgan": "^1.10.0",
+    "node-geocoder": "^3.27.0",
     "slugify": "^1.5.3",
     "validator": "^13.6.0"
   }
